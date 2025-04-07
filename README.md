@@ -26,6 +26,7 @@ php artisan migrate --seed
 
 Run the following command to build frontend part:
 ```sh
+npm install
 npm run build
 ```
 
