@@ -1,0 +1,71 @@
+<script setup>
+    import { ref } from 'vue'
+    import { useAuthStore } from '@/stores/useAuthStore'
+
+    const authStore = useAuthStore()
+
+    const form = ref({
+        email: '',
+        password: '',
+    })
+
+    const valid = ref(false)
+    const showPassword = ref(false)
+
+    const rules = {
+        required: v => !!v || 'Required field',
+        email: v => /.+@.+\..+/.test(v) || 'Incorrect email',
+    }
+
+    const submit = async () => {
+        await authStore.login(form.value)
+    }
+</script>
+
+<template>
+    <v-container class="d-flex justify-center align-center" style="min-height: 100vh">
+        <v-card width="400" class="pa-6 rounded-xl elevation-10">
+        <v-card-title class="text-h5 mb-4">Login</v-card-title>
+
+        <v-form @submit.prevent="submit" ref="form" v-model="valid">
+            <v-text-field
+                label="Email"
+                v-model="form.email"
+                :rules="[rules.required, rules.email]"
+                prepend-icon="mdi-email"
+                autocomplete="email"
+            />
+
+            <v-text-field
+                label="Password"
+                v-model="form.password"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="showPassword = !showPassword"
+                :rules="[rules.required]"
+                prepend-icon="mdi-lock"
+                autocomplete="current-password"
+            />
+
+            <v-btn
+                type="submit"
+                color="primary"
+                class="mt-4"
+                :loading="authStore.loading"
+                block
+            >
+                Sign In
+            </v-btn>
+
+            <v-btn
+                variant="text"
+                class="mt-2"
+                block
+                @click="$router.push('/register')"
+            >
+                Register
+            </v-btn>
+        </v-form>
+        </v-card>
+    </v-container>
+</template>
