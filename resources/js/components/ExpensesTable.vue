@@ -77,6 +77,7 @@ onMounted(() => {
             @update:items-per-page="handlePerPageChange"
             @update:expanded="handleExpandedChange"
             v-model:expanded="expanded"
+            :mobile-breakpoint="600"
             show-expand
         >
             <template #item-date="{ item }">
