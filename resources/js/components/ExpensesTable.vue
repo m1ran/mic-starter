@@ -18,10 +18,10 @@ const headers = [
 ]
 
 const  subHeaders = [
-    { title: 'Наименование', key: 'title' },
-    { title: 'Количество', key: 'quantity' },
-    { title: 'Цена', key: 'price' },
-    { title: 'Сумма, $', key: 'amount' },
+    { title: 'Наименование', key: 'title', sortable: false },
+    { title: 'Количество', key: 'quantity', sortable: false },
+    { title: 'Цена', key: 'price', sortable: false },
+    { title: 'Сумма, $', key: 'amount', sortable: false },
 ]
 
 const handlePageChange = (page) => {
@@ -104,6 +104,7 @@ onMounted(() => {
                             :items="item.items"
                             hide-default-footer
                             class="expanded-sub-table"
+                            :mobile-breakpoint="600"
                         />
                     </td>
                 </tr>
